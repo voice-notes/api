@@ -1,4 +1,4 @@
-const { ApolloServer, gql } = require('apollo-server');
+const { gql } = require('apollo-server');
 
 const typeDefs = gql`
 
@@ -10,7 +10,7 @@ const typeDefs = gql`
     id: ID!
     sender: ID!
     receiver: ID!
-    noteStatus(type: Status): String!
+    status: String!
     url: String!
   }
 
@@ -21,9 +21,5 @@ const typeDefs = gql`
     receiverNotes: [Note.id]
   }
   
-  enum Status {
-    DRAFT
-    RECORDED
-    LISTENED
-  }
+
 `;
