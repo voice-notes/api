@@ -3,7 +3,8 @@ const { gql } = require('apollo-server');
 const typeDefs = gql`
 
   type Query {
-
+    notes: [Note]
+    users: [User]
   }
 
   type Note {
@@ -17,9 +18,10 @@ const typeDefs = gql`
   type User {
     id: ID!
     slackID: String
-    senderNotes: [Note.id]
-    receiverNotes: [Note.id]
+    senderNotes: [ID]
+    receiverNotes: [ID]
   }
-  
 
 `;
+
+module.exports = typeDefs;
