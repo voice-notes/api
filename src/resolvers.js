@@ -1,6 +1,8 @@
+const data = require("./data");
+
 module.exports = {
   Query: {
-    notes: () => notes,
-    users: () => users,
+    notes: () => data.notes,
+    users: () => data.users,
   }
 }
