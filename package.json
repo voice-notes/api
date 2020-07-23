@@ -20,5 +20,8 @@
   "dependencies": {
     "apollo-server": "^2.15.1",
     "graphql": "^15.3.0"
+  },
+  "devDependencies": {
+    "typescript": "^3.9.7"
   }
 }
