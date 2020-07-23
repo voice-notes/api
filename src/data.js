@@ -1,4 +1,4 @@
-  exports.notes= [
+  exports.notes = [
     {
       id: 0,
       sender: 0,
@@ -22,7 +22,7 @@
     },
   ];
 
-  exports.users =[
+  exports.users = [
     {
       id: 0,
       slackID: 'karla',
