@@ -1,8 +1,8 @@
-import data from "./data";
+import { notes, users } from "./data";
 
 export default {
   Query: {
-    notes: () => data.notes,
-    users: () => data.users,
+    notes: () => notes,
+    users: () => users,
   }
 }
