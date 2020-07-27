@@ -22,7 +22,8 @@
   "homepage": "https://github.com/voice-notes/api#readme",
   "dependencies": {
     "apollo-server": "^2.15.1",
-    "graphql": "^15.3.0"
+    "graphql": "^15.3.0",
+    "rimraf": "^3.0.2"
   },
   "devDependencies": {
     "@types/webpack-env": "^1.15.2",
