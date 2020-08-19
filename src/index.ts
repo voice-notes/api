@@ -17,12 +17,13 @@ const startServer = async() => {
 
   server.applyMiddleware({app});
   
-  await mongoose.connect('mongodb://localhost:27017/tapedit', {useNewUrlParser: true, useUnifiedTopology: true});
-
-  app.listen({port: 4000}, () => 
+  await mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true, useUnifiedTopology: true})
+  .then(()  => {
+    app.listen({port: 4000}, () => 
     console.log(`🎙 Server ready at port 4000`)
   );
+  })
+  .catch((err)=> { console.log(err)})
 }
 
 startServer()
-

@@ -5,6 +5,7 @@ export default {
   Query: {
     notes: () => notes,
     users: () => users,
+    cats: () => Cat.find()
   },
 
   Mutation: {

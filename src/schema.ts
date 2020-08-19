@@ -5,6 +5,7 @@ const typeDefs = gql`
   type Query {
     notes: [Note]
     users: [User]
+    cats: [Cat!]!
   }
 
   type Cat {
