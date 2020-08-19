@@ -1,28 +1,13 @@
-import mongoose from 'mongoose';
+import mongoose, { Document, Model, Schema } from 'mongoose';
 
-export interface ICat extends mongoose.Document {
+declare interface ICat extends Document {
     name: string; 
 };
 
-export const CatSchema = new mongoose.Schema({
-name: {type:String, required: true},
-});
+export interface CatModel extends Model<ICat> {}
 
-const Cat = mongoose.model<ICat>('Cat', { CatSchema });
-  
-export default Cat;
+const schema = new Schema({
+    name: { type: String, required: true },
+})
 
-
-
-// export interface IUser extends mongoose.Document {
-//     name: string; 
-//     somethingElse?: number; 
-//   };
-  
-//   export const UserSchema = new mongoose.Schema({
-//     name: {type:String, required: true},
-//     somethingElse: Number,
-//   });
-  
-//   const User = mongoose.model<IUser>('User', UserSchema);
-//   export default User;
+export const Cat = mongoose.model<ICat>('Cat', schema);

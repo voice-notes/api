@@ -1,5 +1,6 @@
 import { notes, users } from "./data";
 import { Cat } from "./cat";
+import Mongoose from 'mongoose';
 
 export default {
   Query: {
