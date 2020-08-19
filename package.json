@@ -20,10 +20,12 @@
   },
   "homepage": "https://github.com/voice-notes/api#readme",
   "dependencies": {
+    "@types/mongoose": "^5.7.36",
     "apollo-server": "^2.15.1",
     "apollo-server-express": "^2.16.1",
     "express": "^4.17.1",
     "graphql": "^15.3.0",
+    "mongoose": "^5.10.0",
     "rimraf": "^3.0.2",
     "ts-node": "^8.10.2"
   },

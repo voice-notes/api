@@ -6,3 +6,6 @@ export default {
     users: () => users,
   }
 }
+
+// const kitty = new Cat({ name: 'Zildjian' });
+// kitty.save().then(() => console.log('meow'));
