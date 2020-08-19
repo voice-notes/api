@@ -7,6 +7,11 @@ const typeDefs = gql`
     users: [User]
   }
 
+  type Cat {
+    id: ID!
+    name: String!
+  }
+
   type Note {
     id: ID!
     sender: ID!
@@ -20,6 +25,10 @@ const typeDefs = gql`
     slackID: String
     senderNotes: [ID]
     receiverNotes: [ID]
+  }
+
+  type Mutation {
+    createCat(name: String!): Cat!
   }
 
 `;
