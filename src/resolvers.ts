@@ -1,6 +1,5 @@
 import { notes, users } from "./data";
-import { Cat } from "./cat";
-import Mongoose from 'mongoose';
+import { Cat, CatModel } from "./cat";
 
 export default {
   Query: {
@@ -9,12 +8,9 @@ export default {
   },
 
   Mutation: {
-    createCat: (_, {name}) => {
+    createCat: (_:string, {name}:CatModel) => {
       const kitty = new Cat({name});
       return kitty.save();
     }
   }
 }
-
-// const kitty = new Cat({ name: 'Zildjian' });
-// kitty.save().then(() => console.log('meow'));
