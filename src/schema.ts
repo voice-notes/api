@@ -5,13 +5,6 @@ const typeDefs = gql`
   type Query {
     notes: [Note]
     users: [User]
-    cats: [Cat!]!
-  }
-
-  type Cat {
-    id: ID!
-    name: String!
-    colour: String!
   }
 
   type Note {
@@ -28,7 +21,6 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createCat(name: String!, colour: String!): Cat!
     createNote(sender: String!, receiver: String!, status: String!, url: String!): Note!
     createUser(slackID: String!): User!
   }
