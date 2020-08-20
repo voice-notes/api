@@ -32,6 +32,7 @@ const typeDefs = gql`
   type Mutation {
     createCat(name: String!, colour: String!): Cat!
     createNote(sender: String!, receiver: String!, status: String!, url: String!): Note!
+    createUser(slackID: String!): User!
   }
 
 `;
