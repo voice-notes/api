@@ -11,12 +11,13 @@ const typeDefs = gql`
   type Cat {
     id: ID!
     name: String!
+    colour: String!
   }
 
   type Note {
     id: ID!
-    sender: ID!
-    receiver: ID!
+    sender: String!
+    receiver: String!
     status: String!
     url: String!
   }
@@ -29,7 +30,8 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createCat(name: String!): Cat!
+    createCat(name: String!, colour: String!): Cat!
+    createNote(sender: String!, receiver: String!, status: String!, url: String!): Note!
   }
 
 `;
