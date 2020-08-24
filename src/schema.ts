@@ -18,6 +18,8 @@ const typeDefs = gql`
   type User {
     id: ID!
     slackID: String
+    senderNotes: [ID]
+    receiverNotes: [ID]
   }
 
   type Mutation {
