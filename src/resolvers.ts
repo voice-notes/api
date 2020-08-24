@@ -11,10 +11,10 @@ export default {
   Mutation: {
     createNote: (_:string, {sender, receiver, status, url}:INote) => {
       const note = new Note({sender, receiver, status, url});
-      return note.save();
-
+      return note.save
       // have code pushing this note ID to sender - sent array 
       // reciever - recievedArray 
+
     },
     createUser: (_:string, {slackID}:IUser) => {
       const senderNotes: Array<string> = []
