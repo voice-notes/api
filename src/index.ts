@@ -19,7 +19,7 @@ const startServer = async() => {
   
   await mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true, useUnifiedTopology: true})
   .then(()  => {
-    app.listen({port: 4000}, () => 
+    app.listen({port: process.env.PORT || 4000}, () => 
     console.log(`🎙 Server ready at port 4000`)
   );
   })
