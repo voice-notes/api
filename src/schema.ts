@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server';
+import { gql } from 'apollo-server-express';
 
 const typeDefs = gql`
 
@@ -9,8 +9,8 @@ const typeDefs = gql`
 
   type Note {
     id: ID!
-    sender: ID!
-    receiver: ID!
+    sender: String!
+    receiver: String!
     status: String!
     url: String!
   }
@@ -20,6 +20,11 @@ const typeDefs = gql`
     slackID: String
     senderNotes: [ID]
     receiverNotes: [ID]
+  }
+
+  type Mutation {
+    createNote(sender: String!, receiver: String!, status: String!, url: String!): Note!
+    createUser(slackID: String!): User!
   }
 
 `;
