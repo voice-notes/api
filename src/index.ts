@@ -10,6 +10,24 @@ import resolvers from "./resolvers";
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 
+const slackQuery = (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  console.log("request body is:");
+  console.log(request.body);
+  const query = {
+    query: "{ test }",
+    variables: {},
+  };
+  request.body = query;
+  console.log(request.body);
+  next();
+};
+
+app.use(slackQuery);
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
