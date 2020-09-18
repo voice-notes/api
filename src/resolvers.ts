@@ -7,9 +7,11 @@ export default {
   Query: {
     notes: () => Note.find(),
     users: () => User.find(),
-    test: async (_: any, __: any, { dataSources }: any) => {
-      console.log("I'm in the resolver");
-      return dataSources.slackAPI.sendButton();
+    test: async (_: any, { channelId }: any, { dataSources }: any) => {
+      console.log(
+        `I'm in the resolver and received the channelId: ${channelId}`
+      );
+      return dataSources.slackAPI.sendButton({ channelId: channelId });
     },
   },
 

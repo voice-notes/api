@@ -4,7 +4,7 @@ const typeDefs = gql`
   type Query {
     notes: [Note]
     users: [User]
-    test: String
+    test(channelId: String): String
   }
 
   type SlackButton {

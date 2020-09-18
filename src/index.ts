@@ -23,7 +23,7 @@ const slackQuery = (
   // need to check if query is already included in body (this will be true when sent from the client)
 
   const query = {
-    query: "{ test }",
+    query: `{ test(channelId: \"${request.body.channel_id}\") }`,
     variables: {},
   };
   request.body = query;

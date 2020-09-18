@@ -1,4 +1,7 @@
 import { RESTDataSource } from "apollo-datasource-rest";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 class slackAPI extends RESTDataSource {
   constructor() {
@@ -6,12 +9,12 @@ class slackAPI extends RESTDataSource {
     this.baseURL = "https://slack.com/api/";
   }
 
-  sendButton() {
-    console.log("I'm about to send a button");
+  sendButton({ channelId }) {
+    console.log(`I'm about to send a button to the channel: ${channelId}`);
     this.post(
       "chat.postMessage",
       {
-        channel: "D01A7T2H8G2",
+        channel: channelId,
         blocks: [
           {
             type: "header",
@@ -45,7 +48,7 @@ class slackAPI extends RESTDataSource {
       },
       {
         headers: {
-          Authorization: "Bearer token",
+          Authorization: `Bearer ${process.env.SLACK_ACCESS_TOKEN}`,
         },
       }
     );
