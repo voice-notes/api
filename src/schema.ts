@@ -7,6 +7,11 @@ const typeDefs = gql`
     test: String
   }
 
+  type SlackButton {
+    channel: String!
+    text: String!
+  }
+
   type Note {
     id: ID!
     sender: String!

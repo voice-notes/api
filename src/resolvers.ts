@@ -1,11 +1,16 @@
 import { Note, INote } from "./models/note";
 import { User, IUser } from "./models/user";
+// import { DataSources } from "apollo-server-core/dist/graphqlOptions";
+// import { IDataSources } from '../src/index';
 
 export default {
   Query: {
     notes: () => Note.find(),
     users: () => User.find(),
-    test: () => "Hello Slack",
+    test: async (_: any, __: any, { dataSources }: any) => {
+      console.log("I'm in the resolver");
+      return dataSources.slackAPI.sendButton();
+    },
   },
 
   Mutation: {

@@ -4,6 +4,8 @@ import bodyParser from "body-parser";
 import { ApolloServer, gql } from "apollo-server-express";
 import typeDefs from "./schema";
 import resolvers from "./resolvers";
+import slackAPI from "./datasources/slack";
+import { DataSources } from "apollo-server-core/dist/graphqlOptions";
 // import mongoose from "mongoose";
 
 // const startServer = async () => {
@@ -17,20 +19,38 @@ const slackQuery = (
 ) => {
   console.log("request body is:");
   console.log(request.body);
+
+  // need to check if query is already included in body (this will be true when sent from the client)
+
   const query = {
     query: "{ test }",
     variables: {},
   };
   request.body = query;
+  // response.status(200).send({
+  //   channel: "D01A7T2H8G2",
+  //   text: "Hello, world",
+  // });
   console.log(request.body);
   next();
 };
 
 app.use(slackQuery);
 
+export interface IDataSources {
+  slackAPI: slackAPI;
+}
+
+const buildDataSources = () => {
+  return {
+    slackAPI: new slackAPI(),
+  } as DataSources<IDataSources>;
+};
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  dataSources: () => buildDataSources(),
   // playground: true,
 });
 
