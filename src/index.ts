@@ -22,6 +22,10 @@ const slackQuery = (
     variables: {},
   };
   request.body = query;
+  response.send({
+    "channel": 'C017Q15T97T',
+    "text": "yoooooooooo, world"
+  })
   console.log(request.body);
   next();
 };
