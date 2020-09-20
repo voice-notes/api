@@ -17,16 +17,27 @@ const slackQuery = (
 ) => {
   console.log("request body is:");
   console.log(request.body);
-  const query = {
-    query: "{ test }",
-    variables: {},
-  };
-  request.body = query;
+  const user = request.body.user_id
+  // const query = {
+  //   query: "{ test }",
+  //   variables: {},
+  // };
+  // request.body = query;
   response.send({
-    "channel": 'C017Q15T97T',
-    "text": "yoooooooooo, world"
+    // "channel": 'C017Q15T97T',
+    "response_type": "in_channel",
+    // "text": "Hello TapedIt Team"
+    "blocks": [
+      {
+        "type": "section",
+        "text": {
+          "type": "mrkdwn",
+          "text": `\n<https://tapedit.netlify.app/|Click *here* to tape your message>\n:loud_sound:`
+        }
+      }
+    ]
   })
-  console.log(request.body);
+  // console.log(request.body);
   next();
 };
 
