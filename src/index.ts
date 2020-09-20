@@ -25,14 +25,14 @@ const slackQuery = (
   // request.body = query;
   response.send({
     // "channel": 'C017Q15T97T',
-    "response_type": "in_channel",
+    // "response_type": "in_channel",
     // "text": "Hello TapedIt Team"
     "blocks": [
       {
         "type": "section",
         "text": {
           "type": "mrkdwn",
-          "text": `\n<https://tapedit.netlify.app/|Click *here* to tape your message>\n:loud_sound:`
+          "text": `Hey <@${user}>\n<https://tapedit.netlify.app/|Click *here* to tape your message>\n:loud_sound:`
         }
       }
     ]
