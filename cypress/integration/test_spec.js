@@ -12,20 +12,21 @@ describe("Server set up", () => {
     cy.log("Hello World");
     const query = `
       {
-        notes{
-          id
+        users{
+          id,
+          slackID
         }
       }
     `;
     const mutation = `mutation {
-      createUser(slackID: "Tim"){
+      createUser(slackID: "Chris"){
         id
         slackID
         senderNotes
         receiverNotes
       }
-      
-    }`
+    }
+    `;
     cy.request({
       method: "post",
       url: "http://localhost:4000/graphql/", // graphql endpoint
@@ -33,7 +34,7 @@ describe("Server set up", () => {
       failOnStatusCode: false, // not a must but in case the fail code is not 200 / 400
     }).then((res) => {
       console.log(res)
-      cy.log(res);
+      cy.log(res.body.data.users[0].slackID);
     });
   });
 });
