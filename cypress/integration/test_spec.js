@@ -1,9 +1,8 @@
 describe("Server set up", () => {
-
   beforeEach(() => {
-    cy.task("getSchema").then(schema => {
+    cy.task("getSchema").then((schema) => {
       cy.mockGraphql({
-        schema
+        schema,
       });
     });
   });
@@ -33,8 +32,8 @@ describe("Server set up", () => {
       body: { query }, // or { query: query } depending if you are writing with es6
       failOnStatusCode: false, // not a must but in case the fail code is not 200 / 400
     }).then((res) => {
-      console.log(res)
-      cy.log(res.body.data.users[0].slackID);
+      console.log(res);
+      cy.log(res.body.data);
     });
   });
 });
