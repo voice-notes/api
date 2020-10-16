@@ -5,6 +5,7 @@ describe("Server set up", () => {
         schema,
       });
     });
+    // cy.exec('yarn run db:drop')
   });
 
   it("connects to the graphql server and prints", () => {
@@ -17,15 +18,7 @@ describe("Server set up", () => {
         }
       }
     `;
-    const mutation = `mutation {
-      createUser(slackID: "Chris"){
-        id
-        slackID
-        senderNotes
-        receiverNotes
-      }
-    }
-    `;
+    cy.task('addUser', {slackID: "TestUser"})
     cy.request({
       method: "post",
       url: "http://localhost:4000/graphql/", // graphql endpoint

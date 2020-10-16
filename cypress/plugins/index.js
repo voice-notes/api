@@ -15,7 +15,7 @@ const fs = require("fs");
 const path = require("path");
 const wp = require("@cypress/webpack-preprocessor");
 const mongoose = require('mongoose');
-const User = require('../../src/models/user');
+import { User } from '../../src/models/user'
 
 
 const webpackOptions = {
