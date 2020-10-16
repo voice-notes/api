@@ -14,6 +14,9 @@
 const fs = require("fs");
 const path = require("path");
 const wp = require("@cypress/webpack-preprocessor");
+const mongoose = require('mongoose');
+const User = require('../../src/models/user');
+
 
 const webpackOptions = {
   watch: true,
@@ -57,5 +60,20 @@ module.exports = (on, config) => {
       );
     }
   });
+  
   on("file:preprocessor", wp({ webpackOptions }));
-}
+  on('task', {
+    addUser(slackID) {
+      return new Promise((resolve) => {
+        mongoose.connect('mongodb://localhost/test', (err) => {
+          const senderNotes = [];
+          const receiverNotes = [];
+          const user = new User({ slackID, senderNotes, receiverNotes });
+          user.save((err) => {     
+            resolve('done');
+          });
+        });
+      });             
+    },
+  })
+};
