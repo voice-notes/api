@@ -10,8 +10,8 @@ export interface INote extends Document {
 // export interface NoteModel extends Model<INote> {}
 
 const schema = new Schema({
-  sender: { type: String, required: true},
-  receiver: { type: String, required: true },
+  sender: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
+  receiver: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   status: { type: String, required: true },
   url: { type: String, required: true },
 })
