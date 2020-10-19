@@ -1,7 +1,6 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
 
 export interface IUser extends Document {
-    _id: string;
     slackID: string;
     senderNotes: Array<string>; 
     receiverNotes: Array<string>
