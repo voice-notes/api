@@ -1,6 +1,9 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
+import { User, IUser } from './user';
+
 
 export interface INote extends Document {
+  _id: string;
   sender: string;
   receiver: string
   status: string
