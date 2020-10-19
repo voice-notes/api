@@ -4,7 +4,6 @@ describe("Server set up", () => {
   });
 
   it("connects to the graphql server and prints", () => {
-    cy.log("Hello World");
     const query = `
       {
         users{
@@ -21,6 +20,7 @@ describe("Server set up", () => {
       failOnStatusCode: false, // not a must but in case the fail code is not 200 / 400
     }).then((res) => {
       expect(res.body.data.users[0].slackID).to.equal("TestSender");
+      expect(res.body.data.users[1].slackID).to.equal("TestReceiver");
     });
   });
 });
