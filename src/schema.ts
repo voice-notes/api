@@ -11,6 +11,8 @@ const typeDefs = gql`
     id: ID!
     sender: String!
     receiver: String!
+    senderSlackID: String!
+    receiverSlackID: String!
     status: String!
     url: String!
   }
