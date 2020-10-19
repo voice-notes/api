@@ -1,10 +1,5 @@
 describe("Server set up", () => {
   beforeEach(() => {
-    cy.task("getSchema").then((schema) => {
-      cy.mockGraphql({
-        schema,
-      });
-    });
     cy.exec("yarn run db:drop");
   });
 
