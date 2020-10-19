@@ -11,7 +11,7 @@ export default {
   Mutation: {
     createNote: (_: string, { sender, receiver, status, url }: INote) => {
       //Need to pull users via slackID to add note
-      
+      const senderID = User.findOne({ slackID: sender})
       const note = new Note({ sender, receiver, status, url });
       return note.save();
       // have code pushing this note ID to sender - sent array
