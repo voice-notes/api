@@ -2,6 +2,11 @@ import { Note, INote } from './models/note'
 import { User, IUser } from './models/user'
 import { response } from 'express'
 
+async function createNote(sender, receiver, status, url){
+  if(sender[0]._id != null && receiver[0]._id != null){
+    return await new Note({sender: sender[0]._id, receiver: receiver[0]._id, status, url}).save()
+  }
+} 
 
 export default {
   Query: {
@@ -11,33 +16,28 @@ export default {
   },
 
   Mutation: {
-    createNote: (_:string, {sender, receiver, status, url}:INote) => {
+    createNote: async(_:string, args:INote) => {
+      const {sender, receiver, status, url} = args
       const slackTempID: Array<string> = [sender, receiver]
+  
+      const dbSender= await User.find({slackID: sender})
+      const dbReceiver = await User.find({slackID: receiver})
 
-      User.find().where('slackID').in(slackTempID).exec((err, records) => {
+      const note = createNote(dbSender, dbReceiver, status, url)
 
-        let senderMongoID = records[0]._id
-        let receiverMongoID = records[1]._id
-
-        console.log(`unicorn = ${records}`)
-        //  "id": "5f89c01a5d0132364dc29e9c",
-        console.log(`senderID = ${senderMongoID}`)
-        console.log(`length = ${records.length}`)
-        //  "id": "5f89c0275d0132364dc29e9d",
-        console.log(`receiver = ${receiverMongoID}`)
-
-        const note = new Note({sender: senderMongoID, receiver: receiverMongoID, status, url});
-        return note.save()
-      });
+      return note
     },
-    createUser: (_: string, { slackID }: IUser) => {
-      const senderNotes: Array<string> = [];
-      const receiverNotes: Array<string> = [];
-      const user = new User({ slackID, senderNotes, receiverNotes });
-      return user.save();
-    },
-  },
-};
+    createUser: (_:string, {slackID}:IUser) => {
+      const senderNotes: Array<string> = [] 
+      const receiverNotes: Array<string> = []
+      const user = new User({slackID, senderNotes, receiverNotes});
+      return user.save()
+    }
+  }
+}
 
-//We think for this to work, on createNote, the sender and receiver would need to be fished out of the
-//DB before we create a new note, as the sender + receiver are mapped to MongoID not SlackID
+// senderNotes: [ID]
+// receiverNotes: [ID]
+
+
+// 
