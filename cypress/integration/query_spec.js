@@ -1,3 +1,5 @@
+import { GRAPHQL_ENDPOINT } from '../constants'
+
 describe("Server set up", () => {
   beforeEach(() => {
     cy.exec("yarn run db:drop");
@@ -15,7 +17,7 @@ describe("Server set up", () => {
     cy.task("addUser", { slackID: "TestUser2" });
     cy.request({
       method: "post",
-      url: "http://localhost:4000/graphql/", // graphql endpoint
+      url: GRAPHQL_ENDPOINT, // graphql endpoint
       body: { query }, // or { query: query } depending if you are writing with es6
       failOnStatusCode: false, // not a must but in case the fail code is not 200 / 400
     }).then((res) => {
