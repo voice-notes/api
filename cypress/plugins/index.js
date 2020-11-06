@@ -14,6 +14,7 @@
 
 const mongoose = require("mongoose");
 import { User } from "../../src/models/user";
+import { MONGO_URL } from '../constants';
 
 /**
  * @type {Cypress.PluginConfig}
@@ -25,7 +26,7 @@ module.exports = (on, config) => {
     addUser(slackIDObj) {
       return new Promise((resolve) => {
         mongoose.connect(
-          "mongodb://localhost/test",
+          MONGO_URL,
           { useNewUrlParser: true, useUnifiedTopology: true },
           (err) => {
             const { slackID } = slackIDObj;
