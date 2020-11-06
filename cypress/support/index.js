@@ -21,6 +21,6 @@ import "./commands";
 
 before(() => {
   cy.exec("yarn run db:drop");
-  cy.task("addUser", { slackID: "TestSender" });
-  cy.task("addUser", { slackID: "TestReceiver" });
+  cy.task("addUserToDB", { slackID: "TestSender" });
+  cy.task("addUserToDB", { slackID: "TestReceiver" });
 });

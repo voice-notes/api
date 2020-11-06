@@ -14,7 +14,7 @@
 
 const mongoose = require("mongoose");
 import { User } from "../../src/models/user";
-import { MONGO_URL } from '../constants';
+import { MONGO_URL } from "../constants";
 
 /**
  * @type {Cypress.PluginConfig}
@@ -23,7 +23,7 @@ module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
   on("task", {
-    addUser(slackIDObj) {
+    addUserToDB(slackIDObj) {
       return new Promise((resolve) => {
         mongoose.connect(
           MONGO_URL,
