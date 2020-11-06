@@ -1,10 +1,6 @@
-import { GRAPHQL_ENDPOINT } from '../constants'
+import { GRAPHQL_ENDPOINT } from "../constants";
 
-describe("Server set up", () => {
-  beforeEach(() => {
-    cy.exec("yarn run db:drop");
-  });
-
+describe("Can add note", () => {
   it("Returns expected data on addNote mutation", () => {
     const noteMutation = `
       mutation{
@@ -16,8 +12,7 @@ describe("Server set up", () => {
         }
       }
     `;
-    cy.task("addUser", { slackID: "TestSender" });
-    cy.task("addUser", { slackID: "TestReceiver" });
+
     cy.request({
       method: "post",
       url: GRAPHQL_ENDPOINT, // graphql endpoint

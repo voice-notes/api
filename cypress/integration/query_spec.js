@@ -1,10 +1,6 @@
-import { GRAPHQL_ENDPOINT } from '../constants'
+import { GRAPHQL_ENDPOINT } from "../constants";
 
-describe("Server set up", () => {
-  beforeEach(() => {
-    cy.exec("yarn run db:drop");
-  });
-
+describe("Can retrieve users", () => {
   it("returns users when user query is fired", () => {
     const query = `
       {
@@ -13,8 +9,7 @@ describe("Server set up", () => {
         }
       }
     `;
-    cy.task("addUser", { slackID: "TestUser" });
-    cy.task("addUser", { slackID: "TestUser2" });
+
     cy.request({
       method: "post",
       url: GRAPHQL_ENDPOINT, // graphql endpoint
