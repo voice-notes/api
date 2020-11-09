@@ -1,4 +1,4 @@
-import { GRAPHQL_ENDPOINT } from "../constants";
+import { GRAPHQL_ENDPOINT } from "../../src/constants";
 
 describe("Can retrieve users", () => {
   it("returns users when user query is fired", () => {

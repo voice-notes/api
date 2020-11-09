@@ -1,4 +1,4 @@
-import { GRAPHQL_ENDPOINT } from "../constants";
+import { GRAPHQL_ENDPOINT } from "../../src/constants";
 
 describe("Can add note", () => {
   it("Returns expected data on addNote mutation", () => {
