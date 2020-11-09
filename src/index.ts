@@ -1,61 +1,38 @@
-// import { ApolloServer } from "apollo-server";
-import express, { Request, Response, NextFunction } from "express";
-import bodyParser from "body-parser";
-import { ApolloServer, gql } from "apollo-server-express";
+import { ApolloServer } from 'apollo-server-express';
+import express from 'express';
+import mongoose from 'mongoose';
+
+import { MONGO_URL } from './constants'
+import resolvers from './resolvers';
 import typeDefs from "./schema";
-import resolvers from "./resolvers";
-// import mongoose from "mongoose";
 
-// const startServer = async () => {
-const app = express();
-app.use(bodyParser.urlencoded({ extended: true }));
+const startServer = async() => {
+  const app = express();
 
-const slackQuery = (
-  request: Request,
-  response: Response,
-  next: NextFunction
-) => {
-  console.log("request body is:");
-  console.log(request.body);
-  const user = request.body.user_id
-  // const query = {
-  //   query: "{ test }",
-  //   variables: {},
-  // };
-  // request.body = query;
-  response.send({
-    // "channel": 'C017Q15T97T',
-    // "response_type": "in_channel",
-    // "text": "Hello TapedIt Team"
-    "blocks": [
-      {
-        "type": "section",
-        "text": {
-          "type": "mrkdwn",
-          "text": `Hey <@${user}>\n<https://tapedit.netlify.app/|Click *here* to tape your message>\n:loud_sound:`
-        }
-      }
-    ]
-  })
-  // console.log(request.body);
-  next();
-};
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    playground: true,
+  });
+  server.applyMiddleware({ app });
 
-app.use(slackQuery);
+  const listen = app.listen({ port: 4000 }, () => 
+    console.log(`🎙 Server ready at port 4000`)
+  );
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  // playground: true,
-});
+  await connect(listen)
+}
 
-server.applyMiddleware({ app, path: "/graphql" });
-
-// await mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true, useUnifiedTopology: true})
-// .then(()  => {
-app.listen({ port: 4000 }, () => console.log(`🎙 Server ready at port 4000`));
-// })
-// .catch((err)=> { console.log(err)})
-// };
+async function connect(listen: any) {
+  mongoose.connection
+    .on('error', console.log)
+    .on('disconnected', connect)
+    .once('open', () => listen);
+    
+  return await mongoose.connect(
+    MONGO_URL,
+    { useNewUrlParser: true, useUnifiedTopology: true }
+  )
+}
 
 // startServer();
