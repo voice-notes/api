@@ -35,4 +35,4 @@ async function connect(listen: any) {
   )
 }
 
-// startServer();
+startServer();
