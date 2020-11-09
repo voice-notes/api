@@ -14,7 +14,7 @@
 
 const mongoose = require("mongoose");
 import { User } from "../../src/models/user";
-import { MONGO_URL } from "../constants";
+import { MONGO_URL } from "../../src/constants";
 
 /**
  * @type {Cypress.PluginConfig}
