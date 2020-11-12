@@ -1,5 +1,12 @@
-import { Note, INote } from "./models/note";
-import { User, IUser } from "./models/user";
+import { Note, INote } from './models/note'
+import { User, IUser } from './models/user'
+import { response } from 'express'
+
+function createNote(sender: IUser[], receiver: IUser[], status: string, url: string){
+  if(sender[0]._id != null && receiver[0]._id != null){
+    return new Note({sender: sender[0]._id, receiver: receiver[0]._id, status, url}).save()
+  }
+} 
 
 export default {
   Query: {
@@ -9,21 +16,29 @@ export default {
   },
 
   Mutation: {
-    createNote: (_: string, { sender, receiver, status, url }: INote) => {
-      //Need to pull users via slackID to add note
-      const note = new Note({ sender, receiver, status, url });
-      return note.save();
-      // have code pushing this note ID to sender - sent array
-      // reciever - recievedArray
-    },
-    createUser: (_: string, { slackID }: IUser) => {
-      const senderNotes: Array<string> = [];
-      const receiverNotes: Array<string> = [];
-      const user = new User({ slackID, senderNotes, receiverNotes });
-      return user.save();
-    },
-  },
-};
+    createNote: async(_:string, args:INote) => {
+      const {sender, receiver, status, url} = args
+      console.log("sender")
+      console.log("Receiver")
+  
+      const dbSender= await User.find({slackID: sender})
+      const dbReceiver = await User.find({slackID: receiver})
 
-//We think for this to work, on createNote, the sender and receiver would need to be fished out of the
-//DB before we create a new note, as the sender + receiver are mapped to MongoID not SlackID
+      const note = createNote(dbSender, dbReceiver, status, url)
+
+      return note
+    },
+    createUser: (_:string, {slackID}:IUser) => {
+      const senderNotes: Array<string> = [] 
+      const receiverNotes: Array<string> = []
+      const user = new User({slackID, senderNotes, receiverNotes});
+      return user.save()
+    }
+  }
+}
+
+// senderNotes: [ID]
+// receiverNotes: [ID]
+
+
+// 
