@@ -2,9 +2,9 @@ import { Note, INote } from './models/note'
 import { User, IUser } from './models/user'
 import { response } from 'express'
 
-async function createNote(sender, receiver, status, url){
+function createNote(sender: IUser[], receiver: IUser[], status: string, url: string){
   if(sender[0]._id != null && receiver[0]._id != null){
-    return await new Note({sender: sender[0]._id, receiver: receiver[0]._id, status, url}).save()
+    return new Note({sender: sender[0]._id, receiver: receiver[0]._id, status, url}).save()
   }
 } 
 
@@ -18,7 +18,8 @@ export default {
   Mutation: {
     createNote: async(_:string, args:INote) => {
       const {sender, receiver, status, url} = args
-      const slackTempID: Array<string> = [sender, receiver]
+      console.log("sender")
+      console.log("Receiver")
   
       const dbSender= await User.find({slackID: sender})
       const dbReceiver = await User.find({slackID: receiver})
