@@ -30,9 +30,7 @@ module.exports = (on, config) => {
           { useNewUrlParser: true, useUnifiedTopology: true },
           (err) => {
             const { slackID } = slackIDObj;
-            const senderNotes = [];
-            const receiverNotes = [];
-            const user = new User({ slackID, senderNotes, receiverNotes });
+            const user = new User({ slackID });
             user.save((err) => {
               resolve("done");
             });

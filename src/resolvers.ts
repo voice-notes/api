@@ -42,9 +42,7 @@ export default {
 
     },
     createUser: (_:string, {slackID}:IUser) => {
-      const senderNotes: Array<string> = [] 
-      const receiverNotes: Array<string> = []
-      const user = new User({slackID, senderNotes, receiverNotes});
+      const user = new User({slackID});
       return user.save()
     }
   }

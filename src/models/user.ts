@@ -8,8 +8,8 @@ export interface IUser extends Document {
 
 const schema = new Schema({
     slackID: { type: String, required: true },
-    senderNotes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true}],
-    receiverNotes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true}] 
+    senderNotes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+    receiverNotes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}] 
 })
 
 export const User = mongoose.model<IUser>('User', schema)
