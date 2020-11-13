@@ -2,13 +2,13 @@ import { Note, INote } from './models/note'
 import { User, IUser } from './models/user'
 import { response } from 'express'
 
-function createNote(sender: IUser[], receiver: IUser[], status: string, url: string){
-  if(sender[0]._id != null && receiver[0]._id != null){
+function createNote(sender: IUser, receiver: IUser, status: string, url: string){
+  if(sender._id != null && receiver._id != null){
     return new Note({
-      sender: sender[0]._id,
-      receiver: receiver[0]._id,
-      senderSlackID: sender[0].slackID,
-      receiverSlackID: receiver[0].slackID,
+      sender: sender._id,
+      receiver: receiver._id,
+      senderSlackID: sender.slackID,
+      receiverSlackID: receiver.slackID,
       status,
       url
     }).save()
@@ -26,17 +26,20 @@ export default {
     createNote: async(_:string, args:INote) => {
       const {sender, receiver, status, url} = args
   
-      const dbSender = await User.find({slackID: sender})
-      const dbReceiver = await User.find({slackID: receiver})
+      const dbSender = await User.findOne({slackID: sender})
+      const dbReceiver = await User.findOne({slackID: receiver})
 
-      const note = await createNote(dbSender, dbReceiver, status, url)
-      if (note != undefined) {
-        dbSender[0].senderNotes.push(note._id)
-        dbReceiver[0].receiverNotes.push(note._id)
-        await dbSender[0].save()
-        await dbReceiver[0].save()
+      if (dbSender != null && dbReceiver != null) {
+        const note = await createNote(dbSender, dbReceiver, status, url)
+        if (note != undefined) {
+          dbSender.senderNotes.push(note._id)
+          dbReceiver.receiverNotes.push(note._id)
+          await dbSender.save()
+          await dbReceiver.save()
+        }
+        return note
       }
-      return note
+
     },
     createUser: (_:string, {slackID}:IUser) => {
       const senderNotes: Array<string> = [] 
@@ -46,9 +49,3 @@ export default {
     }
   }
 }
-
-// senderNotes: [ID]
-// receiverNotes: [ID]
-
-
-// 
