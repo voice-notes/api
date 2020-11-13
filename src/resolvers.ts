@@ -26,11 +26,16 @@ export default {
     createNote: async(_:string, args:INote) => {
       const {sender, receiver, status, url} = args
   
-      const dbSender= await User.find({slackID: sender})
+      const dbSender = await User.find({slackID: sender})
       const dbReceiver = await User.find({slackID: receiver})
 
       const note = await createNote(dbSender, dbReceiver, status, url)
-
+      if (note != undefined) {
+        dbSender[0].senderNotes.push(note._id)
+        dbReceiver[0].receiverNotes.push(note._id)
+        await dbSender[0].save()
+        await dbReceiver[0].save()
+      }
       return note
     },
     createUser: (_:string, {slackID}:IUser) => {
