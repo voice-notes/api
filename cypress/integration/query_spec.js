@@ -20,11 +20,9 @@ describe("Can retrieve users", () => {
     };
     cy.request({
       method: "post",
-      url: GRAPHQL_ENDPOINT, // graphql endpoint
-      body: { query: USERS_QUERY }, // or { query: query } depending if you are writing with es6
-      failOnStatusCode: false, // not a must but in case the fail code is not 200 / 400
+      url: GRAPHQL_ENDPOINT,
+      body: { query: USERS_QUERY },
     }).then((res) => {
-      console.log(res.body.data);
       expect(res.body.data).to.deep.equal(expectation);
     });
   });
