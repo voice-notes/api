@@ -25,6 +25,11 @@ describe("Can add note", () => {
       failOnStatusCode: false, // not a must but in case the fail code is not 200 / 400
     }).then((res) => {
       expect(res.body.data.createNote).to.deep.equal(expectation);
+
     });
   });
+  it("Adds Note ID to the User array", () => {
+    
+  })
+
 });
