@@ -36,8 +36,8 @@ export default {
         if (note != undefined) {
           dbSender.senderNotes.push(note._id);
           dbReceiver.receiverNotes.push(note._id);
-          await dbSender.save();
-          await dbReceiver.save();
+          const users = [dbSender, dbReceiver];
+          await Promise.all(users.map((user) => user.save()));
         }
         return note;
       }
