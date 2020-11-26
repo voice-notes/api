@@ -1,10 +1,9 @@
 import { GRAPHQL_ENDPOINT } from "../../src/constants";
-import { USERS_QUERY, ADD_NOTE_MUTATION } from "../support/query_constants";
-
+import { USERS } from "../support/queries";
+import { ADD_NOTE } from "../support/mutations";
 
 describe("Can add note", () => {
   it("Returns expected data on createNote mutation", () => {
-    
     const expectation = {
       receiverSlackID: "TestReceiver",
       senderSlackID: "TestSender",
@@ -14,10 +13,9 @@ describe("Can add note", () => {
     cy.request({
       method: "post",
       url: GRAPHQL_ENDPOINT,
-      body: { query: ADD_NOTE_MUTATION },
+      body: { query: ADD_NOTE },
     }).then((res) => {
       expect(res.body.data.createNote).to.deep.equal(expectation);
-
     });
   });
 
@@ -25,11 +23,11 @@ describe("Can add note", () => {
     cy.request({
       method: "post",
       url: GRAPHQL_ENDPOINT,
-      body: { query: USERS_QUERY }
+      body: { query: USERS },
     }).then((res) => {
-      expect(res.body.data.users[0].senderNotes.length).to.equal(1)
-      expect(res.body.data.users[1].receiverNotes.length).to.equal(1)
-    })
-  })
-
+      const { users } = res.body.data;
+      expect(users[0].senderNotes.length).to.equal(1);
+      expect(users[1].receiverNotes.length).to.equal(1);
+    });
+  });
 });
