@@ -5,8 +5,6 @@ import { ADD_NOTE } from "../support/mutations";
 describe("Can add note", () => {
   it("Returns expected data on createNote mutation", () => {
     const expectation = {
-      receiverSlackID: "TestReceiver",
-      senderSlackID: "TestSender",
       status: "RECORDED",
       url: "TEST",
     };
