@@ -1,6 +1,5 @@
 import { Note, INote } from "./models/note";
 import { User, IUser } from "./models/user";
-import { response } from "express";
 
 function createNote(
   sender: IUser,
@@ -12,8 +11,6 @@ function createNote(
     return new Note({
       sender: sender._id,
       receiver: receiver._id,
-      senderSlackID: sender.slackID,
-      receiverSlackID: receiver.slackID,
       status,
       url,
     }).save();
