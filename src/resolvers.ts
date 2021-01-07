@@ -6,7 +6,6 @@ export default {
   Query: {
     notes: () => Note.find(),
     users: () => User.find(),
-    test: () => "Hello Slack",
   },
 
   Mutation: {
@@ -35,7 +34,8 @@ export default {
         return note;
       }
     },
-    createUser: (_: string, { slackID }: IUser) => {
+    createUser: (_: string, args: IUser) => {
+      const { slackID } = args;
       const user = new User({ slackID });
       return user.save();
     },
