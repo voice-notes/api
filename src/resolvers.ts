@@ -1,21 +1,6 @@
 import { Note, INote } from "./models/note";
 import { User, IUser } from "./models/user";
-
-function createNote(
-  sender: IUser,
-  receiver: IUser,
-  status: string,
-  url: string
-) {
-  if (sender._id != null && receiver._id != null) {
-    return new Note({
-      sender: sender._id,
-      receiver: receiver._id,
-      status,
-      url,
-    }).save();
-  }
-}
+import { createMongoNoteInstance } from "./utils";
 
 export default {
   Query: {
@@ -28,11 +13,19 @@ export default {
     createNote: async (_: string, args: INote) => {
       const { sender, receiver, status, url } = args;
 
-      const dbSender = await User.findOne({ slackID: sender });
-      const dbReceiver = await User.findOne({ slackID: receiver });
+      const [dbSender, dbReceiver] = await Promise.all([
+        User.findOne({ slackID: sender }),
+        User.findOne({ slackID: receiver }),
+      ]);
 
       if (dbSender != null && dbReceiver != null) {
-        const note = await createNote(dbSender, dbReceiver, status, url);
+        const note = await createMongoNoteInstance(
+          dbSender,
+          dbReceiver,
+          status,
+          url
+        );
+
         if (note != undefined) {
           dbSender.senderNotes.push(note._id);
           dbReceiver.receiverNotes.push(note._id);
