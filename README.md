@@ -35,4 +35,3 @@ npm run cy:open
 | Query Language:     | GraphQL                |
 | Testing:            | Cypress                |
 
--
