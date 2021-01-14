@@ -5,9 +5,15 @@ import mongoose from "mongoose";
 import { MONGO_URL } from "./constants";
 import resolvers from "./resolvers";
 import typeDefs from "./schema";
+import { slackQuery } from "./utils";
 
 const startServer = async () => {
   const app = express();
+
+  // may need to change to GraphQL query
+  app.post("/slack", (req, res) => {
+    slackQuery(req, res);
+  });
 
   const server = new ApolloServer({
     typeDefs,
