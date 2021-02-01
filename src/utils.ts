@@ -36,7 +36,7 @@ export const slackQuery = (request: Request, response: Response) => {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: `Hey <@${body.user_id}>\n<http://localhost:3000//?chan=${body.channel_id}&sender=${body.user_id}&p1=${param1}&p2=${param2}&p3=${param3}|Tape your message here!>\n:loud_sound:`,
+          text: `Hey <@${body.user_id}>\n<http://localhost:3000/?chan=${body.channel_id}&sender=${body.user_id}&p1=${param1}&p2=${param2}&p3=${param3}|Tape your message here!>\n:loud_sound:`,
         },
       },
     ],
