@@ -26,8 +26,9 @@ const returnUrlParameters = (url: string) => {
 
 export const slackQuery = (request: Request, response: Response) => {
   const { body } = request;
-  console.log(returnUrlParameters(body.response_url));
-  const [param1, param2, param3] = returnUrlParameters(body.response_url);
+  if (body.response_url) {
+    console.log(returnUrlParameters(body.response_url));
+    const [param1, param2, param3] = returnUrlParameters(body.response_url);
 
   console.log(request.body);
   response.send({
@@ -38,7 +39,7 @@ export const slackQuery = (request: Request, response: Response) => {
           type: "mrkdwn",
           text: `Hey <@${body.user_id}>\n<http://localhost:3000/?chan=${body.channel_id}&sender=${body.user_id}&p1=${param1}&p2=${param2}&p3=${param3}|Tape your message here!>\n:loud_sound:`,
         },
-      },
-    ],
-  });
+      ],
+    });
+  }
 };
