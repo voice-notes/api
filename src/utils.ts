@@ -1,5 +1,10 @@
+import axios from "axios";
+import dotenv from "dotenv";
+
 import { IUser } from "./models/user";
 import { Note } from "./models/note";
+
+dotenv.config();
 
 export const createMongoNoteInstance = async (
   sender: IUser,
@@ -15,4 +20,19 @@ export const createMongoNoteInstance = async (
       url,
     }).save();
   }
+};
+
+export const postToSlackWebHook = (url: string) => {
+  axios
+    .post(`${process.env.SLACK_WEBHOOK_URL}`, {
+      response_type: "in_channel",
+      text: `Listen to your TapedIt note here: ${url}`,
+    })
+    .then((res) => {
+      console.log(`Success! Response:`);
+      console.log(res);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 };
