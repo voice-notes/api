@@ -22,17 +22,15 @@ export const createMongoNoteInstance = async (
   }
 };
 
-export const postToSlackWebHook = (url: string) => {
-  axios
-    .post(`${process.env.SLACK_WEBHOOK_URL}`, {
+export const postToSlackWebhook = async (url: string) => {
+  try {
+    let res = await axios.post(`${process.env.SLACK_WEBHOOK_URL}`, {
       response_type: "in_channel",
       text: `Listen to your TapedIt note here: ${url}`,
-    })
-    .then((res) => {
-      console.log(`Success! Response:`);
-      console.log(res);
-    })
-    .catch((error) => {
-      console.error(error);
     });
+    console.log(`statusCode: ${res.status}`);
+    console.log(res);
+  } catch (error) {
+    console.error(error);
+  }
 };

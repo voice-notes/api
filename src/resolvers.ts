@@ -1,6 +1,6 @@
 import { Note, INote } from "./models/note";
 import { User, IUser } from "./models/user";
-import { createMongoNoteInstance, postToSlackWebHook } from "./utils";
+import { createMongoNoteInstance, postToSlackWebhook } from "./utils";
 
 export default {
   Query: {
@@ -31,7 +31,7 @@ export default {
           const users = [dbSender, dbReceiver];
           await Promise.all(users.map((user) => user.save()));
         }
-        postToSlackWebHook(url);
+        postToSlackWebhook(url);
         return note;
       }
     },
