@@ -26,6 +26,7 @@
     "@types/mongoose": "^5.7.36",
     "apollo-server": "^2.15.1",
     "apollo-server-express": "^2.16.1",
+    "axios": "^0.21.1",
     "cypress-graphql-mock": "^0.5.0-alpha.4",
     "express": "^4.17.1",
     "graphql": "^15.3.0",
