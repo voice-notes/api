@@ -1,13 +1,21 @@
 import { ApolloServer } from "apollo-server-express";
+import bodyParser from "body-parser";
 import express from "express";
 import mongoose from "mongoose";
 
 import { MONGO_URL } from "./constants";
 import resolvers from "./resolvers";
 import typeDefs from "./schema";
+import { slackQuery } from "./utils";
 
 const startServer = async () => {
   const app = express();
+  app.use(bodyParser.urlencoded({ extended: true }));
+
+  // may need to change to GraphQL query
+  app.post("/slack", (req, res) => {
+    slackQuery(req, res);
+  });
 
   const server = new ApolloServer({
     typeDefs,
