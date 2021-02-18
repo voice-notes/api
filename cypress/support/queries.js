@@ -1,7 +1,7 @@
-export const USERS = `{
-	users{
+export const NOTES = `{
+	notes{
 		slackID
-		senderNotes
-		receiverNotes
+		audioUrl
+		responseUrl
 	}
 }`;
