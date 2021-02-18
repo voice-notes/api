@@ -16,7 +16,7 @@ const typeDefs = gql`
   type Note {
     id: ID!
     slackID: String
-    url: String!
+    responseUrl: String!
   }
 `;
 
