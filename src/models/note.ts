@@ -1,22 +1,16 @@
-import mongoose, { Document, Model, Schema } from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 
 export interface INote extends Document {
   _id: string;
-  sender: string;
-  receiver: string;
-  status: string;
-  url: string;
+  slackID: string;
+  audioUrl: string;
+  responseUrl: string;
 }
 
 const schema = new Schema({
-  sender: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  receiver: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  status: { type: String, required: true },
-  url: { type: String, required: true },
+  slackID: { type: String, required: true },
+  audioUrl: { type: String, required: true },
+  responseUrl: { type: String, required: true }
 });
 
 export const Note = mongoose.model<INote>("Note", schema);
