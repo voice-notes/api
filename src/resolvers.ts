@@ -1,44 +1,29 @@
 import { Note, INote } from "./models/note";
-import { User, IUser } from "./models/user";
 import { createMongoNoteInstance, postToSlackWebhook } from "./utils";
 
 export default {
   Query: {
-    notes: () => Note.find(),
-    users: () => User.find(),
+    notes: () => Note.find()
   },
 
   Mutation: {
     createNote: async (_: string, args: INote) => {
-      const { sender, receiver, status, url } = args;
+      const { slackID, audioUrl, responseUrl } = args;
 
-      const [dbSender, dbReceiver] = await Promise.all([
-        User.findOne({ slackID: sender }),
-        User.findOne({ slackID: receiver }),
-      ]);
-
-      if (dbSender != null && dbReceiver != null) {
+      try {
         const note = await createMongoNoteInstance(
-          dbSender,
-          dbReceiver,
-          status,
-          url
+          slackID,
+          audioUrl,
+          responseUrl
         );
-
-        if (note != undefined) {
-          dbSender.senderNotes.push(note._id);
-          dbReceiver.receiverNotes.push(note._id);
-          const users = [dbSender, dbReceiver];
-          await Promise.all(users.map((user) => user.save()));
-        }
-        postToSlackWebhook(url);
+        postToSlackWebhook(responseUrl);
         return note;
+        
+      } catch(error) {
+        console.log(error)
       }
+      
     },
-    createUser: (_: string, args: IUser) => {
-      const { slackID } = args;
-      const user = new User({ slackID });
-      return user.save();
-    },
+    
   },
 };
