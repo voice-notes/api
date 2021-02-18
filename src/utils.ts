@@ -1,26 +1,27 @@
 import axios from "axios";
 import dotenv from "dotenv";
 
-import { IUser } from "./models/user";
 import { Note } from "./models/note";
 import { Request, Response } from "express";
 
 dotenv.config();
 
 export const createMongoNoteInstance = async (
-  sender: IUser,
-  receiver: IUser,
-  status: string,
-  url: string
+  slackID: string,
+  audioUrl: string,
+  responseUrl: string
 ) => {
-  if (sender._id != null && receiver._id != null) {
+  
+  try {
     return new Note({
-      sender: sender._id,
-      receiver: receiver._id,
-      status,
-      url,
+      slackID,
+      audioUrl,
+      responseUrl
     }).save();
+  } catch(error) {
+    console.log(error)
   }
+  
 };
 
 const returnUrlParameters = (url: string) => {
