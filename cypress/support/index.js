@@ -20,7 +20,15 @@ import "./commands";
 // require('./commands')
 
 before(() => {
-  cy.exec("yarn run db:drop");
-  cy.task("addUserToDB", { slackID: "TestSender" });
-  cy.task("addUserToDB", { slackID: "TestReceiver" });
+  cy.exec("npm run db:drop");
+  cy.task("addNoteToDB", {
+    slackID: "TestSender1",
+    audioUrl: "TestURL1",
+    responseUrl: "ResponseURL1",
+  });
+  cy.task("addNoteToDB", {
+    slackID: "TestSender2",
+    audioUrl: "TestURL2",
+    responseUrl: "ResponseURL2",
+  });
 });
