@@ -6,16 +6,13 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createNote(
-      slackID: String!
-      audioUrl: String!
-      responseUrl: String!
-    ): Note!
+    createNote(slackID: String!, audioUrl: String!, responseUrl: String!): Note!
   }
 
   type Note {
     id: ID!
-    slackID: String
+    slackID: String!
+    audioUrl: String!
     responseUrl: String!
   }
 `;
