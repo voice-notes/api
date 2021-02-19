@@ -49,11 +49,11 @@ export const slackQuery = (request: Request, response: Response) => {
   }
 };
 
-export const postToSlackWebhook = async (url: string) => {
+export const postToSlackWebhook = async (audioUrl: string, responseUrl: string) => {
   try {
-    let res = await axios.post(`${process.env.SLACK_WEBHOOK_URL}`, {
+    let res = await axios.post(`${responseUrl}`, {
       response_type: "in_channel",
-      text: `Listen to your TapedIt note here: ${url}`,
+      text: `Listen to your TapedIt note here: ${audioUrl}`,
     });
     console.log(`statusCode: ${res.status}`);
   } catch (error) {
