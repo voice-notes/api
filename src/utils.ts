@@ -6,7 +6,7 @@ import { Request, Response } from "express";
 
 dotenv.config();
 
-export const createMongoNoteInstance = async (
+export const saveNoteToDB = async (
   slackID: string,
   audioUrl: string,
   responseUrl: string

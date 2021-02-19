@@ -1,5 +1,5 @@
 import { Note, INote } from "./models/note";
-import { createMongoNoteInstance, postToSlackWebhook } from "./utils";
+import { saveNoteToDB, postToSlackWebhook } from "./utils";
 
 export default {
   Query: {
@@ -11,7 +11,7 @@ export default {
       const { slackID, audioUrl, responseUrl } = args;
 
       try {
-        const note = await createMongoNoteInstance(
+        const note = await saveNoteToDB(
           slackID,
           audioUrl,
           responseUrl
