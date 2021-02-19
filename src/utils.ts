@@ -35,7 +35,6 @@ export const slackQuery = (request: Request, response: Response) => {
   if (body.response_url) {
     const [param1, param2, param3] = returnUrlParameters(body.response_url);
 
-    console.log(request.body);
     response.send({
       blocks: [
         {
@@ -57,7 +56,6 @@ export const postToSlackWebhook = async (url: string) => {
       text: `Listen to your TapedIt note here: ${url}`,
     });
     console.log(`statusCode: ${res.status}`);
-    console.log(res);
   } catch (error) {
     console.error(error);
   }
