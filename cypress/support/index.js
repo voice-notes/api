@@ -19,16 +19,6 @@ import "./commands";
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-before(() => {
+beforeEach(() => {
   cy.exec("npm run db:drop");
-  cy.task("addNoteToDB", {
-    slackID: "TestSender1",
-    audioUrl: "TestURL1",
-    responseUrl: "ResponseURL1",
-  });
-  cy.task("addNoteToDB", {
-    slackID: "TestSender2",
-    audioUrl: "TestURL2",
-    responseUrl: "ResponseURL2",
-  });
 });
