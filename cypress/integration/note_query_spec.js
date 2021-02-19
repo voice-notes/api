@@ -1,8 +1,20 @@
 import { GRAPHQL_ENDPOINT } from "../../src/constants";
 import { NOTES } from "../support/queries";
 
-describe("Can retrieve users", () => {
-  it("returns users when user query is fired", () => {
+describe("Can retrieve notes", () => {
+  it("returns notes when note query is fired", () => {
+
+    cy.task("addNoteToDB", {
+      slackID: "TestSender1",
+      audioUrl: "TestURL1",
+      responseUrl: "ResponseURL1",
+    });
+    cy.task("addNoteToDB", {
+      slackID: "TestSender2",
+      audioUrl: "TestURL2",
+      responseUrl: "ResponseURL2",
+    });
+
     const expectation = {
       notes: [
         {
@@ -22,6 +34,7 @@ describe("Can retrieve users", () => {
       url: GRAPHQL_ENDPOINT,
       body: { query: NOTES },
     }).then((res) => {
+      console.log(res.body.data)
       expect(res.body.data).to.deep.equal(expectation);
     });
   });
