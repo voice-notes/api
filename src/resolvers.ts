@@ -16,7 +16,7 @@ export default {
           audioUrl,
           responseUrl
         );
-        postToSlackWebhook(responseUrl);
+        postToSlackWebhook(audioUrl, responseUrl);
         return note;
         
       } catch(error) {
