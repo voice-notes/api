@@ -3,7 +3,7 @@ import express from "express";
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 
-import { NODE_ENV, MONGO_TEST_URL, MONGO_PRODUCTION_URL } from "./database.config";
+import { MONGO_TEST_URL, MONGO_PRODUCTION_URL } from "./database.config";
 import resolvers from "./resolvers";
 import typeDefs from "./schema";
 import { slackQuery } from "./utils";
@@ -16,7 +16,6 @@ if (process.env.NODE_ENV === "production") {
 }
 
 const startServer = async () => {
-
   const app = express();
   app.use(express.urlencoded({ extended: true }));
 
