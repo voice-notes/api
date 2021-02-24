@@ -1,24 +1,22 @@
 import { ApolloServer } from "apollo-server-express";
 import express from "express";
 import mongoose from "mongoose";
-// import * as dotenv from "dotenv";
+import * as dotenv from "dotenv";
 
-import { productionDb, testDb, env } from "./database.config";
+import { NODE_ENV, MONGO_TEST_URL, MONGO_PRODUCTION_URL } from "./database.config";
 import resolvers from "./resolvers";
 import typeDefs from "./schema";
 import { slackQuery } from "./utils";
 
-// dotenv.config();
+dotenv.config();
 
-// console.log(process.env.MONGO_PRODUCTION_URL);
-let databaseUrl = testDb;
-if (env === "production") {
-  databaseUrl = productionDb;
+let databaseUrl = MONGO_TEST_URL;
+if (process.env.NODE_ENV === "production") {
+  databaseUrl = MONGO_PRODUCTION_URL;
 }
-console.log(databaseUrl);
 
 const startServer = async () => {
-  console.log(databaseUrl);
+
   const app = express();
   app.use(express.urlencoded({ extended: true }));
 
