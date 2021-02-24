@@ -34,7 +34,6 @@ describe("Can retrieve notes", () => {
       url: GRAPHQL_ENDPOINT,
       body: { query: NOTES },
     }).then((res) => {
-      console.log(res.body.data);
       expect(res.body.data).to.deep.equal(expectation);
     });
   });
