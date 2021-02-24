@@ -27,7 +27,7 @@ module.exports = (on, config) => {
     addNoteToDB(noteObj) {
       return new Promise((resolve) => {
         mongoose.connect(
-          MONGO_TEST_URL,
+          `${MONGO_TEST_URL}`,
           { useNewUrlParser: true, useUnifiedTopology: true },
           (err) => {
             const { slackID, audioUrl, responseUrl } = noteObj;
