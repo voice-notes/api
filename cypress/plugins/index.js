@@ -14,7 +14,7 @@
 
 const mongoose = require("mongoose");
 import { Note } from "../../src/models/note";
-import { MONGO_URL } from "../../src/constants";
+import { MONGO_TEST_URL } from "../../src/constants";
 
 /**
  * @type {Cypress.PluginConfig}
@@ -22,11 +22,12 @@ import { MONGO_URL } from "../../src/constants";
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
+
   on("task", {
     addNoteToDB(noteObj) {
       return new Promise((resolve) => {
         mongoose.connect(
-          MONGO_URL,
+          MONGO_TEST_URL,
           { useNewUrlParser: true, useUnifiedTopology: true },
           (err) => {
             const { slackID, audioUrl, responseUrl } = noteObj;
