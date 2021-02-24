@@ -52,7 +52,7 @@ export const postToSlackWebhook = async (
   responseUrl: string
 ) => {
   try {
-    let res = await axios.post(`${responseUrl}`, {
+    const res = await axios.post(`${responseUrl}`, {
       response_type: "in_channel",
       blocks: [
         {
