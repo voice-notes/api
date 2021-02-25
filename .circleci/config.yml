@@ -19,15 +19,12 @@ orbs:
 # Define the jobs we want to run for this project
 jobs:
   build:
-    docker:
-      - image: circleci/node:14
-      - image: circleci/mongo:4.2.0
-        environment:
-          MONGO_INITDB_ROOT_USERNAME: mongoadmin
-          MONGO_INITDB_ROOT_PASSWORD: password
+    machine:
+      node:
+        version: 14
+        
     steps:
       - checkout
-      - setup_remote_docker
       - run:
           name: install-dependencies
           command: npm install
