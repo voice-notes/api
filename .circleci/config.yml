@@ -26,18 +26,12 @@ jobs:
           name: install-dependencies
           command: npm install
 
-  test:
-    docker:
-      - image: circleci/node:7
-    steps:
-      - cypress/run
-
 # Orchestrate our job run sequence
 workflows:
   build_and_test:
     jobs:
       - build
-      - test:
+      - cypress/run:
           requires:
             - build
       - hold:
