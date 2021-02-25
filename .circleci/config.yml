@@ -3,18 +3,26 @@ orbs:
   heroku: circleci/heroku@0.0.10
   cypress: cypress-io/cypress@1
 
-workflows:
+jobs:
   build:
-    jobs:
-      - cypress/install:
-          build: "npm run build" # run a custom app build step
+    docker:
+      - image: circleci/node:7
+    steps:
+      - checkout
+      - run:
+          name: install-dependencies
+          command: npm install
       - cypress/run:
           requires:
-            - cypress/install
-          start: "npm start"
+            start: "npm start"
+
+workflows:
   heroku_deploy:
     jobs:
-      - heroku/deploy-via-git
+      - build
+      - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
+          requires:
+            - build
 # version: 2.1
 
 # # Define the jobs we want to run for this project
