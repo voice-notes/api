@@ -33,11 +33,13 @@ jobs:
   build:
     docker:
       - image: circleci/node:14
-      - checkout
-      - setup_remote_docker
-      - run:
-          name: install-dependencies
-          command: npm install
+      - image: circleci/mongo:3.4.4
+      steps:
+        - checkout
+        - setup_remote_docker
+        - run:
+            name: install-dependencies
+            command: npm install
 
 # Orchestrate our job run sequence
 workflows:
