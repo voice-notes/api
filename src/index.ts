@@ -1,19 +1,15 @@
 import { ApolloServer } from "apollo-server-express";
 import express from "express";
 import mongoose from "mongoose";
-import * as dotenv from "dotenv";
 
-import { MONGO_TEST_URL, MONGO_PRODUCTION_URL } from "./database.config";
+import { returnDatabaseUri } from "./utils/returnDatabaseUri"
 import resolvers from "./resolvers";
 import typeDefs from "./schema";
 import { slackQuery } from "./utils/slackQuery";
 
-dotenv.config();
 
-let databaseUrl = MONGO_TEST_URL;
-if (process.env.NODE_ENV === "production") {
-  databaseUrl = MONGO_PRODUCTION_URL;
-}
+
+let databaseUri = returnDatabaseUri();
 
 const startServer = async () => {
   const app = express();
@@ -43,7 +39,7 @@ async function connect(listen: any) {
     .on("disconnected", connect)
     .once("open", () => listen);
 
-  return await mongoose.connect(databaseUrl, {
+  return await mongoose.connect(`${databaseUri}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
