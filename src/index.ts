@@ -6,7 +6,7 @@ import * as dotenv from "dotenv";
 import { MONGO_TEST_URL, MONGO_PRODUCTION_URL } from "./database.config";
 import resolvers from "./resolvers";
 import typeDefs from "./schema";
-import { slackQuery } from "./utils";
+import { slackQuery } from "./utils/slackQuery";
 
 dotenv.config();
 

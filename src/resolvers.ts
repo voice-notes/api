@@ -1,5 +1,6 @@
 import { Note, INote } from "./models/note";
-import { saveNoteToDB, postToSlackWebhook } from "./utils";
+import { saveNoteToDB } from "./utils/saveNoteToDB"
+import { postToSlackWebhook } from "./utils/postToSlackWebhook";
 
 export default {
   Query: {
