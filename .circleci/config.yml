@@ -22,7 +22,10 @@ jobs:
       - image: circleci/node:7
     steps:
       - checkout
-      - npm install
+      - run:
+          name: install-dependencies
+          command: npm install
+
   test:
     docker:
       - image: circleci/node:7
