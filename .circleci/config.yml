@@ -9,7 +9,6 @@ jobs:
   build:
     docker:
       - image: circleci/node:14
-      - image: circleci/mongo:4.2.0
        
     steps:
       - checkout
@@ -17,22 +16,28 @@ jobs:
       - run:
           name: install-dependencies
           command: npm install
-      - run: 
-          name: start-server
-          command: npm start
-      - run: 
-          name: run-cypress
-          command: npm run cy:run
+
+  setupDB: 
+    docker:
+      - image: circleci/mongo:4.2.0
 
 # Orchestrate our job run sequence
 workflows:
   build_and_test:
     jobs:
       - build
+      - setupDB
+        requires: 
+          -build
+      - cypress/run:
+          start: npm start
+          requires:
+            - build
       - hold:
           type: approval
           requires:
             - build
+            - cypress/run
       - heroku/deploy-via-git:
           requires:
             - hold
