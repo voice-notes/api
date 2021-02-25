@@ -17,8 +17,12 @@ jobs:
       - run:
           name: install-dependencies
           command: npm install
-      - cypress/run:
-          start: npm start
+      - run: 
+          name: start-server
+          command: npm start
+      - run: 
+          name: run-cypress
+          command: npm run cy:run
 
 # Orchestrate our job run sequence
 workflows:
