@@ -38,7 +38,7 @@ workflows:
           type: approval
           requires:
             - build
-            - test
+            - cypress/run
       - heroku/deploy-via-git:
           requires:
             - hold
