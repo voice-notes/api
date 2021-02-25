@@ -12,17 +12,17 @@
 #       - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
 version: 2.1
 
+machine:
+  node:
+    version: 14
+
 orbs:
   heroku: circleci/heroku@0.0.10
   cypress: cypress-io/cypress@1
 
 # Define the jobs we want to run for this project
 jobs:
-  build:
-    machine:
-      node:
-        version: 14
-        
+  build:        
     steps:
       - checkout
       - run:
