@@ -29,8 +29,6 @@ jobs:
     steps:
       - cypress/run:
           start: "npm start"
-  heroku_deploy:
-    - heroku/deploy-via-git
 
 # Orchestrate our job run sequence
 workflows:
@@ -45,6 +43,6 @@ workflows:
           requires:
             - build
             - test
-      - heroku_deploy:
+      - heroku/deploy-via-git:
           requires:
             - hold
