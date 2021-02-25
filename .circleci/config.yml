@@ -28,7 +28,7 @@ workflows:
       - build
       - setupDB:
         requires: 
-          -build
+          - build
       - cypress/run:
           start: npm start
           requires:
