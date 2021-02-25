@@ -12,18 +12,6 @@
 #       - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
 version: 2.1
 
-dependencies:
-  cache_directories:
-    - mongodb-linux-x86_64-ubuntu1204-3.2.0
-  pre:
-    - if [[ ! -d mongodb-linux-x86_64-ubuntu1204-3.2.0 ]]; then wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1204-3.2.0.tgz && tar xvzf mongodb-linux-x86_64-ubuntu1204-3.2.0.tgz; fi
-    - sudo stop mongodb
-    - sudo cp mongodb-linux-x86_64-ubuntu1204-3.2.0/bin/* /usr/bin
-    - sudo start mongodb
-machine:
-  services:
-    - mongodb
-
 orbs:
   heroku: circleci/heroku@0.0.10
   cypress: cypress-io/cypress@1
@@ -33,13 +21,18 @@ jobs:
   build:
     docker:
       - image: circleci/node:14
-      - image: circleci/mongo:3.4.4
-      steps:
-        - checkout
-        - setup_remote_docker
-        - run:
-            name: install-dependencies
-            command: npm install
+      - image: circleci/mongo:4.2.0
+        ports:
+          - "27017:27017"
+        environment:
+          MONGO_INITDB_ROOT_USERNAME: mongoadmin
+          MONGO_INITDB_ROOT_PASSWORD: password
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: install-dependencies
+          command: npm install
 
 # Orchestrate our job run sequence
 workflows:
