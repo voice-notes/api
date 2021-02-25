@@ -9,7 +9,7 @@ jobs:
   build:
     docker:
       - image: circleci/node:14
-       
+      - image: circleci/mongo:4.2.0
     steps:
       - checkout
       - setup_remote_docker
@@ -17,18 +17,11 @@ jobs:
           name: install-dependencies
           command: npm install
 
-  setupDB: 
-    docker:
-      - image: circleci/mongo:4.2.0
-
 # Orchestrate our job run sequence
 workflows:
   build_and_test:
     jobs:
       - build
-      - setupDB:
-        requires: 
-          - build
       - cypress/run:
           start: npm start
           requires:
