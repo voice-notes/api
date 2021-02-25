@@ -1,60 +1,50 @@
+# version: 2.1
+# orbs:
+#   heroku: circleci/heroku@0.0.10
+#   cypress: cypress-io/cypress@1
+
+# workflows:
+#   heroku_deploy:
+#     jobs:
+#       - cypress/run:
+#           requires:
+#             start: "npm start"
+#       - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
 version: 2.1
 orbs:
   heroku: circleci/heroku@0.0.10
   cypress: cypress-io/cypress@1
 
-workflows:
-  heroku_deploy:
-    jobs:
+# Define the jobs we want to run for this project
+jobs:
+  build:
+    docker:
+      - image: circleci/node:7
+    steps:
+      - checkout
+      - npm install
+  test:
+    docker:
+      - image: circleci/node:7
+    steps:
       - cypress/run:
+          start: "npm start"
+  heroku_deploy:
+    - heroku/deploy-via-git
+
+# Orchestrate our job run sequence
+workflows:
+  build_and_test:
+    jobs:
+      - build
+      - test:
           requires:
-            start: "npm start"
-      - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
-# version: 2.1
-
-# # Define the jobs we want to run for this project
-# jobs:
-#   build:
-#     docker:
-#       - image: circleci/<language>:<version TAG>
-#         auth:
-#           username: mydockerhub-user
-#           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
-#     steps:
-#       - checkout
-#       - run: my-build-commands
-#   test:
-#     docker:
-#       - image: circleci/<language>:<version TAG>
-#         auth:
-#           username: mydockerhub-user
-#           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
-#     steps:
-#       - checkout
-#       - run: my-test-commands
-#   deploy:
-#     docker:
-#       - image: circleci/<language>:<version TAG>
-#         auth:
-#           username: mydockerhub-user
-#           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
-#     steps:
-#       - checkout
-#       - run: my-deploy-commands
-
-# # Orchestrate our job run sequence
-# workflows:
-#   build_and_test:
-#     jobs:
-#       - build
-#       - test:
-#           requires:
-#             - build
-#       - hold:
-#           type: approval
-#           requires:
-#             - build
-#             - test
-#       - deploy:
-#           requires:
-#             - hold
+            - build
+      - hold:
+          type: approval
+          requires:
+            - build
+            - test
+      - heroku_deploy:
+          requires:
+            - hold
