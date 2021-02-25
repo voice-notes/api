@@ -26,9 +26,8 @@ jobs:
   test:
     docker:
       - image: circleci/node:7
-    steps:
-      - cypress/run:
-          start: "npm start"
+    cypress/run:
+      start: "npm start"
 
 # Orchestrate our job run sequence
 workflows:
