@@ -11,9 +11,6 @@ executors:
       - image: cypress/base:14
       - image: 
           mongo:4.4.0
-        environment:
-          MONGO_INITDB_ROOT_USERNAME: mongoadmin
-          MONGO_INITDB_ROOT_PASSWORD: password
       # - image: hasura/graphql-engine:v1.1.1
 
 # Define the jobs we want to run for this project
