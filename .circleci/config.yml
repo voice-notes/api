@@ -9,7 +9,8 @@ executors:
   mongo-executor:
     docker:
       - image: cypress/base:12.16.1
-      - image: mongo:4.4.0
+      - image: 
+          mongo:4.4.0
         environment:
           MONGO_INITDB_ROOT_USERNAME: mongoadmin
           MONGO_INITDB_ROOT_PASSWORD: password
