@@ -17,7 +17,6 @@ describe("Can retrieve notes", () => {
         },
       ],
     };
-
     cy.task("addNoteToDB", {
       slackID: "TestSender1",
       audioUrl: "TestURL1",
