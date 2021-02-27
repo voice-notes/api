@@ -42,4 +42,20 @@ module.exports = (on, config) => {
       });
     },
   });
+
+  on("task", {
+    dropDb() {
+      return new Promise((resolve) => {
+        mongoose.connect(
+          `${process.env.MONGO_TEST_URI}`,
+          { useNewUrlParser: true, useUnifiedTopology: true },
+          (err) => {
+            mongoose.connection.db.dropDatabase(
+              console.log("database dropped")
+            );
+          }
+        );
+      });
+    },
+  });
 };
