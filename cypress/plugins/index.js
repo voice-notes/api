@@ -50,9 +50,9 @@ module.exports = (on, config) => {
           `${process.env.MONGO_TEST_URI}`,
           { useNewUrlParser: true, useUnifiedTopology: true },
           (err) => {
-            mongoose.connection.db.dropDatabase(
-              console.log("database dropped")
-            );
+            mongoose.connection.db.dropDatabase((err) => {
+              resolve("done");
+            });
           }
         );
       });
