@@ -19,6 +19,6 @@ import "./commands";
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-afterEach(() => {
-  cy.exec("npm run db:drop");
+beforeEach(() => {
+  cy.task("dropDb");
 });
