@@ -29,13 +29,13 @@ jobs:
 workflows:
   build_and_test:
     jobs:
-      - build
+      # - build
       - cypress/run:
           executor: mongo-executor
           start: npm start
-          requires:
-            - build
+          # requires:
+          #   - build
       - heroku/deploy-via-git:
           requires:
-            - build
+            # - build
             - cypress/run
