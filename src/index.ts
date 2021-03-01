@@ -2,12 +2,10 @@ import { ApolloServer } from "apollo-server-express";
 import express from "express";
 import mongoose from "mongoose";
 
-import { returnDatabaseUri } from "./utils/returnDatabaseUri"
+import { returnDatabaseUri } from "./utils/returnDatabaseUri";
 import resolvers from "./resolvers";
 import typeDefs from "./schema";
 import { slackQuery } from "./utils/slackQuery";
-
-
 
 let databaseUri = returnDatabaseUri();
 
@@ -26,7 +24,9 @@ const startServer = async () => {
   });
   server.applyMiddleware({ app });
 
-  const listen = app.listen({ port: 4000 }, () =>
+  const port = process.env.PORT || 4000;
+
+  const listen = app.listen({ port: port }, () =>
     console.log(`🎙 Server ready at port 4000`)
   );
 
