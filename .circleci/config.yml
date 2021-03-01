@@ -11,13 +11,13 @@ executors:
       - image: cypress/base:14
       - image: 
           mongo:4.4.0
-      # - image: hasura/graphql-engine:v1.1.1
 
 # Define the jobs we want to run for this project
 jobs:
   build:
     docker:
       - image: circleci/node:14
+      - image: circleci/mongo:4.4.0
     steps:
       - checkout
       - setup_remote_docker
