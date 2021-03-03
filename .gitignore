@@ -72,6 +72,10 @@ typings/
 .env
 .env.test
 
+# cypress environment variables file
+
+cypress.env.json
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 
