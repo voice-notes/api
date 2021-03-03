@@ -1,11 +1,14 @@
 import { ApolloServer } from "apollo-server-express";
 import express from "express";
 import mongoose from "mongoose";
+import * as dotenv from "dotenv";
 
 import { returnDatabaseUri } from "./utils/returnDatabaseUri";
 import resolvers from "./resolvers";
 import typeDefs from "./schema";
 import { slackQuery } from "./utils/slackQuery";
+
+dotenv.config();
 
 const databaseUri = returnDatabaseUri();
 
