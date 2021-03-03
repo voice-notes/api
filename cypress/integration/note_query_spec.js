@@ -1,5 +1,9 @@
-import { GRAPHQL_ENDPOINT } from "../../src/constants";
+import { returnGraphqlEndpoint } from "../../src/utils/returnGraphqlEndpoint";
 import { NOTES } from "../support/queries";
+
+const graphqlEndpoint = returnGraphqlEndpoint();
+console.log(returnGraphqlEndpoint);
+console.log(`${graphqlEndpoint} outside the descibe block`);
 
 describe("Can retrieve notes", () => {
   it("returns notes when note query is fired", () => {
@@ -17,6 +21,7 @@ describe("Can retrieve notes", () => {
         },
       ],
     };
+    console.log(`${graphqlEndpoint} inside the descibe block`);
     cy.task("addNoteToDB", {
       slackID: "TestSender1",
       audioUrl: "TestURL1",
@@ -30,7 +35,7 @@ describe("Can retrieve notes", () => {
 
     cy.request({
       method: "post",
-      url: GRAPHQL_ENDPOINT,
+      url: graphqlEndpoint,
       body: { query: NOTES },
     }).then((res) => {
       expect(res.body.data).to.deep.equal(expectation);

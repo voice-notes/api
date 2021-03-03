@@ -1,6 +1,7 @@
-import { GRAPHQL_ENDPOINT } from "../../src/constants";
-import { USERS } from "../support/queries";
+import { returnGraphqlEndpoint } from "../../src/utils/returnGraphqlEndpoint";
 import { ADD_NOTE } from "../support/mutations";
+
+const graphqlEndpoint = returnGraphqlEndpoint();
 
 describe("Can add note", () => {
   it("Returns expected data on createNote mutation", () => {
@@ -10,7 +11,7 @@ describe("Can add note", () => {
     };
     cy.request({
       method: "post",
-      url: GRAPHQL_ENDPOINT,
+      url: graphqlEndpoint,
       body: { query: ADD_NOTE },
     }).then((res) => {
       expect(res.body.data.createNote).to.deep.equal(expectation);
