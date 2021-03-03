@@ -11,12 +11,16 @@
 
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
-import * as dotenv from "dotenv";
+// import * as dotenv from "dotenv";
 
-dotenv.config();
+// dotenv.config();
 
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+
 import { Note } from "../../src/models/note";
+import { returnDatabaseUri } from "../../src/utils/returnDatabaseUri";
+
+const databaseUri = returnDatabaseUri();
 
 /**
  * @type {Cypress.PluginConfig}
@@ -29,7 +33,7 @@ module.exports = (on, config) => {
     addNoteToDB(noteObj) {
       return new Promise((resolve) => {
         mongoose.connect(
-          `${process.env.MONGO_TEST_URI}`,
+          `${databaseUri}`,
           { useNewUrlParser: true, useUnifiedTopology: true },
           (err) => {
             const { slackID, audioUrl, responseUrl } = noteObj;
@@ -47,7 +51,7 @@ module.exports = (on, config) => {
     dropDb() {
       return new Promise((resolve) => {
         mongoose.connect(
-          `${process.env.MONGO_TEST_URI}`,
+          `${databaseUri}`,
           { useNewUrlParser: true, useUnifiedTopology: true },
           (err) => {
             mongoose.connection.db.dropDatabase((err) => {
