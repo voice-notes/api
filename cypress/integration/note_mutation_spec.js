@@ -1,7 +1,4 @@
-import { returnGraphqlEndpoint } from "../../src/utils/returnGraphqlEndpoint";
 import { ADD_NOTE } from "../support/mutations";
-
-const graphqlEndpoint = returnGraphqlEndpoint();
 
 describe("Can add note", () => {
   it("Returns expected data on createNote mutation", () => {
@@ -11,7 +8,7 @@ describe("Can add note", () => {
     };
     cy.request({
       method: "post",
-      url: graphqlEndpoint,
+      url: Cypress.env("GRAPHQL_ENDPOINT"),
       body: { query: ADD_NOTE },
     }).then((res) => {
       expect(res.body.data.createNote).to.deep.equal(expectation);
