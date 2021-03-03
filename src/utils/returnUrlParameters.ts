@@ -3,3 +3,4 @@ export const returnUrlParameters = (url: string) => {
     const index = splitUrl.length;
     return [splitUrl[index - 3], splitUrl[index - 2], splitUrl[index - 1]];
   };
+  
