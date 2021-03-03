@@ -7,7 +7,7 @@ import resolvers from "./resolvers";
 import typeDefs from "./schema";
 import { slackQuery } from "./utils/slackQuery";
 
-let databaseUri = returnDatabaseUri();
+const databaseUri = returnDatabaseUri();
 
 const startServer = async () => {
   const app = express();
