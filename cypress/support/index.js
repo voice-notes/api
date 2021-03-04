@@ -19,8 +19,6 @@ import "./commands";
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-before(() => {
-  cy.exec("yarn run db:drop");
-  cy.task("addUserToDB", { slackID: "TestSender" });
-  cy.task("addUserToDB", { slackID: "TestReceiver" });
+beforeEach(() => {
+  cy.task("dropDb");
 });

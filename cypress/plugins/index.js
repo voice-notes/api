@@ -11,10 +11,16 @@
 
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
+// import * as dotenv from "dotenv";
 
-const mongoose = require("mongoose");
-import { User } from "../../src/models/user";
-import { MONGO_URL } from "../../src/constants";
+// dotenv.config();
+
+import mongoose from "mongoose";
+
+import { Note } from "../../src/models/note";
+import { returnDatabaseUri } from "../../src/utils/returnDatabaseUri";
+
+const databaseUri = returnDatabaseUri();
 
 /**
  * @type {Cypress.PluginConfig}
@@ -22,16 +28,33 @@ import { MONGO_URL } from "../../src/constants";
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
+
   on("task", {
-    addUserToDB(slackIDObj) {
+    addNoteToDB(noteObj) {
       return new Promise((resolve) => {
         mongoose.connect(
-          MONGO_URL,
+          `${databaseUri}`,
           { useNewUrlParser: true, useUnifiedTopology: true },
           (err) => {
-            const { slackID } = slackIDObj;
-            const user = new User({ slackID });
-            user.save((err) => {
+            const { slackID, audioUrl, responseUrl } = noteObj;
+            const note = new Note({ slackID, audioUrl, responseUrl });
+            note.save((err) => {
+              resolve("done");
+            });
+          }
+        );
+      });
+    },
+  });
+
+  on("task", {
+    dropDb() {
+      return new Promise((resolve) => {
+        mongoose.connect(
+          `${databaseUri}`,
+          { useNewUrlParser: true, useUnifiedTopology: true },
+          (err) => {
+            mongoose.connection.db.dropDatabase((err) => {
               resolve("done");
             });
           }

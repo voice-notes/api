@@ -1,6 +1,6 @@
 export const ADD_NOTE = `mutation {
-	createNote(sender:"TestSender", receiver:"TestReceiver", status:"RECORDED", url:"TEST"){
-		status
-		url
+	createNote(slackID:"TestSender", audioUrl:"Hello, World!", responseUrl:"TEST"){
+		slackID
+		audioUrl
 	}
 }`;

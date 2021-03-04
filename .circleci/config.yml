@@ -1,0 +1,40 @@
+version: 2.1
+
+orbs:
+  heroku: circleci/heroku@0.0.10
+  cypress: cypress-io/cypress@1
+  
+# custom executor for the  Cypress orb
+executors:
+  mongo-executor:
+    docker:
+      - image: cypress/base:14
+      - image: 
+          mongo:4.4.0
+
+# Define the jobs we want to run for this project
+jobs:
+  build:
+    docker:
+      - image: circleci/node:14
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: install-dependencies
+          command: npm install
+
+# Orchestrate our job run sequence
+workflows:
+  build_and_test:
+    jobs:
+      - build
+      - cypress/run:
+          executor: mongo-executor
+          start: npm start
+          requires:
+            - build
+      - heroku/deploy-via-git:
+          requires:
+            - build
+            - cypress/run
