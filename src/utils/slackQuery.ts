@@ -1,9 +1,10 @@
-import { returnUrlParameters } from "./returnUrlParameters"
 import { Request, Response } from "express";
+
+import { returnUrlParameters } from "./returnUrlParameters";
+import { FRONT_END_URL } from "../config";
 
 export const slackQuery = (request: Request, response: Response) => {
   const { user_id, response_url } = request.body;
-  const { FRONT_END_URL } = process.env
   if (response_url) {
     const [param1, param2, param3] = returnUrlParameters(response_url);
     response.send({
