@@ -14,9 +14,7 @@ npm start
 
 Visit http://localhost:4000/graphql in your browser to interact with your local database!
 
-## Preview
-
-<img src="./img/PlaygroundNotesPreview.png">
+<img src="https://i.ibb.co/xmGD2Sx/Screenshot-2021-03-04-at-15-10-56.png">
 
 ## Testing
 
@@ -36,3 +34,5 @@ npm run cy:open
 | Testing:            | Cypress                |
 
 ## Flow diagram  
+
+<img src="https://i.ibb.co/3dbCBsk/Taped-It-Frame-1.jpg">
