@@ -12,7 +12,7 @@ npm install
 npm start
 ```
 
-Visit http://localhost:4000/graphql in your browser to interact with your local database!
+Visit http://localhost:4000/graphql in your browser to interact with your local database:
 
 <img src="https://i.ibb.co/xmGD2Sx/Screenshot-2021-03-04-at-15-10-56.png">
 
