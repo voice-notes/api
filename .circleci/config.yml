@@ -38,3 +38,6 @@ workflows:
           requires:
             - build
             - cypress/run
+          filters:
+             branches:
+               only: master
