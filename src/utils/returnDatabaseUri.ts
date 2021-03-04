@@ -1,5 +1,5 @@
+import { NODE_ENV, MONGO_PRODUCTION_URI, MONGO_TEST_URI } from "../config";
+
 export const returnDatabaseUri = () => {
-  return process.env.NODE_ENV === "production"
-    ? process.env.MONGO_PRODUCTION_URI
-    : process.env.MONGO_TEST_URI;
+  return NODE_ENV === "production" ? MONGO_PRODUCTION_URI : MONGO_TEST_URI;
 };
