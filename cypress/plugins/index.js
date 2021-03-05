@@ -11,9 +11,6 @@
 
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
-// import * as dotenv from "dotenv";
-
-// dotenv.config();
 
 import mongoose from "mongoose";
 
