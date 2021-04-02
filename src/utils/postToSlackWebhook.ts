@@ -2,7 +2,8 @@ import axios from "axios";
 
 export const postToSlackWebhook = async (
     audioUrl: string,
-    responseUrl: string
+    responseUrl: string,
+    slackID: string
   ) => {
     try {
       const res = await axios.post(`${responseUrl}`, {
@@ -12,7 +13,7 @@ export const postToSlackWebhook = async (
             type: "section",
             text: {
               type: "mrkdwn",
-              text: `<${audioUrl}|Click to listen>`,
+              text: `<@${slackID}> has left a voice message!\n<${audioUrl}|Click to listen>`,
             },
           },
         ],
