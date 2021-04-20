@@ -34,10 +34,7 @@ const startServer = async () => {
 };
 
 async function connect(listen: any) {
-  mongoose.connection
-    .on("error", console.log)
-    .on("disconnected", connect)
-    .once("open", () => listen);
+  mongoose.connection.on("error", console.log).once("open", () => listen);
 
   return await mongoose.connect(`${databaseUri}`, {
     useNewUrlParser: true,
