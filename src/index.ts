@@ -39,7 +39,8 @@ async function connect(listen: any) {
   return await mongoose.connect(`${databaseUri}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    server: { reconnectTries: 5, reconnectInterval: 500 },
+    reconnectTries: 5,
+    reconnectInterval: 500,
   });
 }
 
