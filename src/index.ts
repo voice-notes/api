@@ -36,7 +36,11 @@ const startServer = async () => {
 async function connect(listen: any) {
   mongoose.connection
     .on("error", console.log)
-    .on("disconnected", () => console.log("mongoose disconnected"))
+    .on("disconnected", () =>
+      setTimeout(function () {
+        connect;
+      }, 5000)
+    )
     .once("open", () => listen);
 
   return await mongoose.connect(`${databaseUri}`, {
