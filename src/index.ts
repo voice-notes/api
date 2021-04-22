@@ -34,19 +34,15 @@ const startServer = async () => {
 };
 
 async function connect(listen: any) {
-  mongoose.connection
-    .on("error", console.log)
-    .on("disconnected", () =>
-      setTimeout(function () {
-        connect;
-      }, 5000)
-    )
-    .once("open", () => listen);
+  mongoose.connection.on("error", console.log).once("open", () => listen);
 
   return await mongoose.connect(`${databaseUri}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    server: { reconnectTries: 5, reconnectInterval: 500 },
   });
 }
+
+// mongoose.connect(uri, { server: { reconnectTries: Number.MAX_VALUE } });
 
 startServer();
