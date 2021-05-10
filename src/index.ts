@@ -13,6 +13,10 @@ const startServer = async () => {
   const app = express();
   app.use(express.urlencoded({ extended: true }));
 
+  app.get("/", (req, res) => {
+    res.status(200)
+  })
+
   app.post("/slack", (req, res) => {
     slackQuery(req, res);
   });
