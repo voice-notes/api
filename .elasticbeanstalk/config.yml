@@ -4,5 +4,5 @@ branch-defaults:
 global:
   application_name: process.env['AWS_APP']
   default_platform: process.env['AWS_PLATFORM']
-  default_region: process.env['AWS_REGION']
+  default_region: process.env['AWS_DEFAULT_REGION']
   sc: git
