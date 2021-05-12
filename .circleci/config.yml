@@ -38,7 +38,6 @@ workflows:
           requires:
             - build
             - cypress/run
-          context: aws-creds
           environment-name: process.env['AWS_ENV']
           filters:
             branches:
