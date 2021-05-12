@@ -38,7 +38,7 @@ workflows:
           requires:
             - build
             - cypress/run
-          environment-name: process.env['AWS_ENV']
+          environment-name: $AWS_ENV
           filters:
             branches:
               only:
