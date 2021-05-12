@@ -1,8 +1,8 @@
 version: 2.1
 
 orbs:
-  heroku: circleci/heroku@0.0.10
   cypress: cypress-io/cypress@1
+  aws-elastic-beanstalk: circleci/aws-elastic-beanstalk@1.0.2
   
 # custom executor for the  Cypress orb
 executors:
@@ -34,10 +34,15 @@ workflows:
           start: npm start
           requires:
             - build
-      - heroku/deploy-via-git:
+      - aws-elastic-beanstalk/deploy:
           requires:
             - build
             - cypress/run
+          context: aws-creds
+          environment-name: process.env['AWS_ENV']
           filters:
-             branches:
-               only: master
+            branches:
+              only:
+                - master
+          label: version-<<pipeline.number>>
+          
