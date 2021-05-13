@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   cypress: cypress-io/cypress@1
+  eb: circleci/aws-elastic-beanstalk@1.0.2
   
 # custom executor for the  Cypress orb
 executors:
@@ -24,18 +25,15 @@ jobs:
           command: npm install
   deploy:
     docker:
-      - image: circleci/node:14
+      - image: 'cimg/base:stable'
     steps:
+      - checkout
+      - eb/setup
       - run:
-          name: Installing deployment dependencies
           command: |
-            sudo apt-get -y -qq update
-            sudo apt-get install python3-pip python3-dev build-essential
-            sudo pip install --upgrade setuptools
-            sudo pip install awsebcli --upgrade
-      - run:
-          name: Deploying
-          command: eb deploy $AWS_ENV
+            eb deploy $AWS_ENV
+            eb status
+          name: You may now use the EB CLI within this job
     
   
 
