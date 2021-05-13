@@ -49,4 +49,7 @@ workflows:
           start: npm start
           requires:
             - build
-      - deploy
+      - deploy:
+          requires:
+            - build
+            - cypress/run
