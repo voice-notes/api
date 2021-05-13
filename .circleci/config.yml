@@ -22,6 +22,10 @@ jobs:
       - run:
           name: install-dependencies
           command: npm install
+  deploy:
+    docker:
+      - image: circleci/node:14
+    steps:
       - run:
           name: Installing deployment dependencies
           command: |
@@ -29,10 +33,6 @@ jobs:
             sudo apt-get install python-pip python-dev build-essential
             sudo pip install --upgrade setuptools
             sudo pip install awsebcli --upgrade
-  deploy:
-    docker:
-      - image: circleci/node:14
-    steps:
       - run:
           name: Deploying
           command: eb deploy $AWS_ENV
