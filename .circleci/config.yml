@@ -23,20 +23,6 @@ jobs:
       - run:
           name: install-dependencies
           command: npm install
-  deploy:
-    docker:
-      - image: 'cimg/base:stable'
-    steps:
-      - checkout
-      - eb/setup
-      - run:
-          command: |
-            echo "region env variable set to: " + $AWS_DEFAULT_REGION + $Not_ENV
-            eb deploy $AWS_ENV
-            eb status
-          name: You may now use the EB CLI within this job
-    
-  
 
 # Orchestrate our job run sequence
 workflows:
@@ -48,7 +34,15 @@ workflows:
           start: npm start
           requires:
             - build
-      - deploy:
+      - eb/deploy:
+          context: aws-creds
+          environment-name: my-app
+          filters:
+            branches:
+              only:
+                - main
+          label: version-<<pipeline.number>>
           requires:
             - build
             - cypress/run
+      
