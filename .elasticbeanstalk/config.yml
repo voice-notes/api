@@ -1,6 +1,6 @@
 branch-defaults:
   master:
-    environment: ${AWS_ENV}
+    environment: $AWS_ENV
 global:
   application_name: $AWS_APP
   default_platform: $AWS_PLATFORM
