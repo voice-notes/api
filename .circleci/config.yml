@@ -40,7 +40,7 @@ workflows:
           filters:
             branches:
               only:
-                - main
+                - EB-Setup
           label: version-<<pipeline.number>>
           requires:
             - build
