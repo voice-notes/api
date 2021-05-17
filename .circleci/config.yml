@@ -41,7 +41,6 @@ workflows:
             branches:
               only:
                 - EB-Setup
-          label: version-<<pipeline.number>>
           requires:
             - build
             - cypress/run
