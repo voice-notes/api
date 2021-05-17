@@ -36,7 +36,7 @@ workflows:
             - build
       - eb/deploy:
           context: aws-creds
-          environment-name: my-app
+          environment-name: $AWS_ENV
           filters:
             branches:
               only:
