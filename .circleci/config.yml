@@ -31,6 +31,7 @@ jobs:
       - eb/setup
       - run:
           command: |
+            echo "region env variable set to: " + $AWS_DEFAULT_REGION
             eb deploy $AWS_ENV
             eb status
           name: You may now use the EB CLI within this job
