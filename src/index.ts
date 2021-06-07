@@ -14,7 +14,7 @@ const startServer = async () => {
   app.use(express.urlencoded({ extended: true }));
 
   app.get("/", (req, res) => {
-    res.status(200)
+    res.send(200)
   })
 
   app.post("/slack", (req, res) => {
