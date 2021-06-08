@@ -15,7 +15,7 @@ const startServer = async () => {
 
   app.get("/", (req, res) => {
     console.log(req)
-    res.send(200)
+    res.sendStatus(200)
   })
 
   app.post("/slack", (req, res) => {
