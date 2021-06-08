@@ -32,7 +32,7 @@ const startServer = async () => {
   const port = process.env.PORT || 4000;
 
   const listen = app.listen({ port: port }, () =>
-    console.log(`🎙 Server ready at port 4000`)
+    console.log(`🎙 Server ready at port ${port}`)
   );
 
   await connect(listen);
