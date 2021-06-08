@@ -14,6 +14,7 @@ const startServer = async () => {
   app.use(express.urlencoded({ extended: true }));
 
   app.get("/", (req, res) => {
+    console.log(req)
     res.send(200)
   })
 
